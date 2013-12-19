@@ -1,0 +1,88 @@
+{% extends 'story/base_nov16-17.47.html' %}
+{% load static %}
+{% load story_tags %}
+<html lang="en">
+<head>
+    <title>All_details</title>
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    {% block main_activity %}
+    <div class="profile">
+        <h5>Click <a href="/profile_update">here </a>to change preferences.</h5>
+    </div>
+	 <div id="result" style="padding-left:50px; text-align: left;width: 60%;display: block;margin-left: auto;margin-right: auto; background: #aaa;"><center> </center> </div>
+    <div class="container">
+	
+		<h4 class="left">{{ items.name }}</h4>
+		<div class="restaurants">
+			<!--div class='left_scroll'>
+				<a href='javascript:slide("left");'><span class="glyphicon glyphicon-chevron-left" style="margin-top:65px"></span></a>
+			</div-->
+			<div class="carousel_inner">
+				<ul id="flexiselDemo2"> 
+					{% for items in z_items %}
+						<li>
+							<div class="image_holder">
+								<div class="caption top-caption"><p>{{ items.name }}</p></div>
+								<img src = "{% get_image items.images %}" alt = {{ items.id }} title="{{ items.name }}"/>
+								<div class="caption bottom-caption"><p>{% get_image items.images %} Bottom Caption</p></div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<!--a href='javascript:slide("right");'><span class="glyphicon glyphicon-chevron-right" style="margin-top:65px"></span></a-->
+		</div>
+	</div>
+	<script>
+	/*
+	//code block to populate version history
+$(".image_holder").click(function(e) {
+	var fav_item = $('img', this).attr('alt');
+	
+	$.ajax({
+		type: "GET",
+		url: "http://zomato.djangobyproject.com/favItem/fav_id="+fav_item,
+		dataType: "json",
+		success : function(data) {
+			alert(fav_item);
+			$('#result').html(options);
+		},
+		error : function(xhr,errmsg,err) {
+			alert(xhr.status + ": " + xhr.responseText);
+		}
+	});
+
+});
+*/
+
+$(".image_holder").click(function(e) {
+	//e.preventDefault();
+	var fav_item = $('img', this).attr('alt');
+	var fav_name = $('img', this).attr('title');
+	//var fav_name = $'.top-caption').text();
+	var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
+	$.ajax({
+		url : "/favItem/",
+		type : "POST",
+		dataType: "json",
+		data : {
+			'client_response' : fav_item,
+			'fav_name' : fav_name,
+			'csrfmiddlewaretoken': token,
+		},
+		success : function(json) {
+			$('#result').html( json.fav_name + ' added to your fav items ' );
+		},
+		error : function(xhr,errmsg,err) {
+		alert(xhr.status + ": " + xhr.responseText);
+		}
+	});
+	e.preventDefault();
+    //$("form").toggle(100);
+});
+	</script>
+    {% endblock %}
+</body>

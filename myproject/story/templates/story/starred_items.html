@@ -1,0 +1,37 @@
+{% extends 'story/base_nov16-17.47.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <title><!-- Insert your title here --></title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="container">
+        <div class="top_picks">
+            <p>Starred Items By me</p> <a href="../all_details">Back </a>
+        </div>
+        
+    </div>
+    <div class="container">
+	{% for item in favItems %}
+    <div class="res_item">
+        <div class="item_container">
+            <img src="{% static 'images/images/games1.jpeg'%}" title="{{ item.fav_choices}}">
+            <div class="name_container">
+                <h5 style=color:white>{{ item.fav_choices}}</h5>
+            </div>
+            <div class="highlight_container">
+                <h5>Brief description of the game</h5>
+            </div>
+            <div class="rating_container">
+                <p>Ratings for the game.</p>
+            </div>
+        </div>
+    </div>
+	{% endfor %}
+	</div>
+{%endblock%}
+</body>
+</html>
+

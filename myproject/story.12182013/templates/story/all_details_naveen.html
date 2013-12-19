@@ -1,0 +1,40 @@
+{% extends 'story/base_nov16-17.47.html' %}
+{% load static %}
+{% load story_tags %}
+<html lang="en">
+<head>
+    <title>All_details</title>
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    {% block main_activity %}
+    <div class="profile">
+        <h5>Click <a href="/profile_update">here </a>to change preferences.</h5>
+    </div>
+	
+    <div class="container">
+	
+		<h4 class="left">{{ items.name }}</h4>
+		<div class="restaurants">
+			<!--div class='left_scroll'>
+				<a href='javascript:slide("left");'><span class="glyphicon glyphicon-chevron-left" style="margin-top:65px"></span></a>
+			</div-->
+			<div class="carousel_inner">
+				<ul id="flexiselDemo2"> 
+					{% for items in z_items %}
+						<li>
+								<div class="caption top-caption"><p>{{ items.name }}</p></div>
+							<div class="image_holder">
+								<img src = "{% get_image items.images %}" alt = {{ items.name }} />
+							</div>
+								<div class="caption bottom-caption"><p>{% get_image items.images %} Bottom Caption</p></div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<!--a href='javascript:slide("right");'><span class="glyphicon glyphicon-chevron-right" style="margin-top:65px"></span></a-->
+		</div>
+	</div>
+    {% endblock %}
+</body>
